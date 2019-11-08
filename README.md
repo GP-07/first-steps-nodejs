@@ -1,4 +1,4 @@
-# first-steps-nodejs
+# Proyecto NodeJS - Express
 
 Página tutorial usada: [TutorialNodeJS](https://code.visualstudio.com/docs/nodejs/nodejs-tutorial)
 
@@ -6,7 +6,7 @@ Página tutorial usada: [TutorialNodeJS](https://code.visualstudio.com/docs/node
 Express es muy usado para buildear y correr aplicaciones nodeJS.
 1. Para instalar Express: `npm install -g express-generator`
 2. Para iniciar un proyecto con Express: `express myExpressApp --view pug`
-3. Seguir las instrucciones que se imprimen por pantalla luego de haber creado el proyecto:\
+3. Seguir las instrucciones que se imprimen por pantalla luego de haber creado el proyecto:
 > change directory:\
 > $ cd myExpressApp\
 > install dependencies:\
