@@ -77,4 +77,4 @@ Para mas detalle, por favor, remitirse al archivo: [users.js](./myExpressApp/rou
 2. Seguir las instrucciones que figuran en este [link](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 3. Luego de reiniciar, levantar el servicio "MongoDB Server"
 4. Ingresar a MongoDB Compass. Compass es el IDE o el cliente de base de datos que ofrece Mongo.
-5. Setear la conexión siguiendo las instrucciones que figuran en este [link] (https://zellwk.com/blog/local-mongodb/)
+5. Setear la conexión siguiendo las instrucciones que figuran en este [link](https://zellwk.com/blog/local-mongodb/)
