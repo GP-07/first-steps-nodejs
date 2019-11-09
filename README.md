@@ -1,7 +1,7 @@
 # Proyecto NodeJS - Express
 
 Página tutorial usada para la inicialización del proyecto:
-[Iniciar-Proyecto-NodeJS](https://code.visualstudio.com/docs/nodejs/nodejs-tutorial)
+[Iniciar-Proyecto-NodeJS](https://code.visualstudio.com/docs/nodejs/nodejs-tutorial)\
 Página tutorial usada para crear la API REST:
 [Inicar-API-REST](https://medium.com/@asfo/desarrollando-una-sencilla-api-rest-con-nodejs-y-express-cab0813f7e4b)
 
@@ -21,11 +21,51 @@ Express es muy usado para buildear y correr aplicaciones nodeJS.
 > node ./bin/www
 5. Abrir el browser para probar que se haya levantado correctamente
 
-## Para hacer una API REST
+## Creación de una API REST
 1. Instalar el parser para los request: `npm install body-parser --save`
-2. Agregar lo siguiente en la app.js para incluir el parser:
+2. Agregar lo siguiente en la `app.js` para incluir el parser:
 > const bodyParser = require('body-parser');\
 > app.use(bodyParser.urlencoded({ extended: false }));\
 > app.use(bodyParser.json());\
 3. Se desarrolla la API. Puede ser dentro de `app.js` o dentro de los routes, por ejemplo, `routes/users.js`, como en este caso.
-Para mas detalle, por favor, remitirse al codigo del archivo `routes/users.js`.
+Ejemplo de código para una API:
+```JavaScript
+var express = require('express');
+var router = express.Router();
+
+// NOTA: Modelo que se usara:
+let usuario = {
+  nombre: '',
+  apellido: ''
+};
+let respuesta = {
+  error: false,
+  codigo: 200,
+  mensaje: ''
+};
+
+/* GET */
+router.get('/', function (req, res) {
+  respuesta = {
+    error: false,
+    codigo: 200,
+    mensaje: ''
+  };
+  if (usuario.nombre === '' || usuario.apellido === '') {
+    respuesta = {
+      error: true,
+      codigo: 501,
+      mensaje: 'El usuario no ha sido creado'
+    };
+  } else {
+    respuesta = {
+      error: false,
+      codigo: 200,
+      mensaje: 'respuesta del usuario',
+      respuesta: usuario
+    };
+  }
+  res.send(respuesta);
+});
+```
+Para mas detalle, por favor, remitirse al archivo: [users.js](./myExpressApp/routes/users.js)
