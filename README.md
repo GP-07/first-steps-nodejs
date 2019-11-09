@@ -24,9 +24,11 @@ Express es muy usado para buildear y correr aplicaciones nodeJS.
 ## Creación de una API REST
 1. Instalar el parser para los request: `npm install body-parser --save`
 2. Agregar lo siguiente en la `app.js` para incluir el parser:
-> const bodyParser = require('body-parser');\
-> app.use(bodyParser.urlencoded({ extended: false }));\
-> app.use(bodyParser.json());\
+```JavaScript
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+```
 3. Se desarrolla la API. Puede ser dentro de `app.js` o dentro de los routes, por ejemplo, `routes/users.js`, como en este caso.
 Ejemplo de código para una API:
 ```JavaScript
@@ -69,3 +71,10 @@ router.get('/', function (req, res) {
 });
 ```
 Para mas detalle, por favor, remitirse al archivo: [users.js](./myExpressApp/routes/users.js)
+
+## Instalar y correr MongoDB localmente
+1. Bajar el binario de instalación de la página de [MongoDB](https://www.mongodb.com/download-center/community)
+2. Seguir las instrucciones que figuran en este [link](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
+3. Luego de reiniciar, levantar el servicio "MongoDB Server"
+4. Ingresar a MongoDB Compass. Compass es el IDE o el cliente de base de datos que ofrece Mongo.
+5. Setear la conexión siguiendo las instrucciones que figuran en este [link] (https://zellwk.com/blog/local-mongodb/)
