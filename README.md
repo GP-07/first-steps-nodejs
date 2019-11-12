@@ -5,6 +5,12 @@ Página tutorial usada para la inicialización del proyecto:
 Página tutorial usada para crear la API REST:
 [Inicar-API-REST](https://medium.com/@asfo/desarrollando-una-sencilla-api-rest-con-nodejs-y-express-cab0813f7e4b)
 
+Links utiles de MongoDB:
+Post MongoDB interesante sobre validaciones: [Document Validation Rules](https://www.mongodb.com/blog/post/adding-document-validation-rules-using-mongodb-compass-15)
+Post tutorial para encontrar el schema de una Collection: [Schmea of a Collection](https://medium.com/@ahsan.ayaz/how-to-find-schema-of-a-collection-in-mongodb-d9a91839d992)
+Manual de MongoDB - Create Collection: [db.createCollection](https://docs.mongodb.com/manual/reference/method/db.createCollection/)
+Manual de MongoDB - Schema Validation: [Schema Validation](https://docs.mongodb.com/manual/core/schema-validation/)
+
 ## Express
 Express es muy usado para buildear y correr aplicaciones nodeJS.
 1. Para instalar Express: `npm install -g express-generator`
@@ -76,5 +82,55 @@ Para mas detalle, por favor, remitirse al archivo: [users.js](./myExpressApp/rou
 1. Bajar el binario de instalación de la página de [MongoDB](https://www.mongodb.com/download-center/community)
 2. Seguir las instrucciones que figuran en este [link](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 3. Luego de reiniciar, levantar el servicio "MongoDB Server"
-4. Ingresar a MongoDB Compass. Compass es el IDE o el cliente de base de datos que ofrece Mongo.
-5. Setear la conexión siguiendo las instrucciones que figuran en este [link](https://zellwk.com/blog/local-mongodb/)
+4. Agregar el directorio de instalación (por ejemplo, `C:\Program Files\MongoDB\Server\4.2\bin`) a la variable de entorno `PATH`.
+Esto es para poder conectarse a la BD usando la terminal.
+
+### Administración de la BD local - Opción 1 - MongoDB Compass
+1. Ingresar a MongoDB Compass. Compass es el IDE o el cliente de base de datos que ofrece Mongo.
+2. Setear la conexión siguiendo las instrucciones que figuran en este [link](https://zellwk.com/blog/local-mongodb/)
+3. Hacer click en MyCluster en la barra de la izquierda, luego `CREATE DATABASE`
+4. Escribir el nombre de la base de datos a crear y un nombre para la primera Collection a crear dentro de la nueva base de datos (es requisito crear al menos una Collection)
+5. <<TODO: SEGUIR INVESTIGANDO LAS POSIBILIDADES QUE HAY CON EL IDE>>
+
+### Administración de la BD local - Opción 2 - Terminal/Consola/Bash
+1. Ingresar a la terminal y tipear `mongo`
+> MongoDB shell version v4.2.1\
+> connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb\
+> Implicit session: session { "id" : UUID("fd04644b-91b2-4405-b474-ee0ee82f09fe") }\
+> MongoDB server version: 4.2.1
+2. Correr el comando `show databases` para ver las bases de datos disponibles actualmente:
+> admin                   0.000GB\
+> config                  0.000GB\
+> first-mongodb-database  0.000GB\
+> local                   0.000GB
+3. Seleccionar la base de datos a la que se desea conectar con el comando `use <dbname>`. Por ejemplo, `use first-mongodb-database`
+> switched to db first-mongodb-database
+4. Una vez dentro de la base de datos, ya se pueden correr comandos propios de mongodb. Por ejemplo, el siguiente comando sería el apropiado para crear una Collection con validaciones:
+```JavaScript
+db.createCollection("userWithValidation", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      additionalProperties: false,
+      properties: {
+        _id: {
+          bsonType: "objectId",
+          description: "id is required"
+        },
+        nombre: {
+          bsonType: "string",
+          description: "must be a string and is required"
+        },
+        apellido: {
+          bsonType: "string",
+          description: "must be a string and is required"
+        },
+      }
+    }
+  }
+});
+```
+Solo si responde con lo siguiente significa que todo funcionó bien:
+```JavaScript
+{ "ok" : 1 }
+```
