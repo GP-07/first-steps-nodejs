@@ -10,7 +10,7 @@ Post MongoDB interesante sobre validaciones: [Document Validation Rules](https:/
 Post tutorial para encontrar el schema de una Collection: [Schmea of a Collection](https://medium.com/@ahsan.ayaz/how-to-find-schema-of-a-collection-in-mongodb-d9a91839d992)\
 Manual de MongoDB - Create Collection: [db.createCollection](https://docs.mongodb.com/manual/reference/method/db.createCollection/)\
 Manual de MongoDB - Schema Validation: [Schema Validation](https://docs.mongodb.com/manual/core/schema-validation/)\
-Post sobre integración de NodeJS-Express con MongoDB: [Integracion NodeJS-MongoDB](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose)
+Post sobre integración de NodeJS-Express con MongoDB: [Integracion NodeJS-MongoDB](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose)\
 Otro post sobre integración de NodeJS-Express con MongoDB: [Integracion NodeJS-MongoDB](https://dev.to/beznet/build-a-rest-api-with-node-express-mongodb-4ho4)
 
 ## Express
@@ -155,7 +155,7 @@ const settings = {
 const mongoUrl = 'mongodb://' + settings.host + ':' + settings.port + '/' + settings.db;
 mongoose.connect(mongoUrl, { useNewUrlParser: true });
 ```
-Aclaración: Probablemente se pueda mejorar y encapsular dentro de una función pero por ahora se lo dejará así ya que de esta forma funciona y se puede continuar avanzando.
+Aclaración: Probablemente se pueda mejorar y encapsular dentro de una función pero por ahora se lo dejará así ya que de esta forma funciona y se puede continuar avanzando.\
 3. Definir un esquema. Ejemplo: dentro de la carpeta `models` se creó el archivo `user.model.js` para definir el esquema que se usará para los usuarios:
 ```JavaScript
 'use strict';
@@ -170,7 +170,7 @@ const UserSchema = new mongoose.Schema({
 // BeneficiarySchema.swaggerName = 'Beneficiary';
 module.exports = mongoose.model('user', UserSchema);
 ```
-Aclaración: Por favor, desestimar las líneas comentadas que fueron extraídas de otro código y posiblemente no apliquen para este caso.
+Aclaración: Por favor, desestimar las líneas comentadas que fueron extraídas de otro código y posiblemente no apliquen para este caso.\
 4. Usar el esquema recién definido en la API. Por ejemplo, dentro de `routes/users.js` se lo usa así:
 ```JavaScript
 /* GET */
