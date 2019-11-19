@@ -4,8 +4,14 @@ const mongoose = require('mongoose');
 // mongoose.Promise = global.Promise;
 
 const UserSchema = new mongoose.Schema({
-    nombre: String,
-    apellido: String
+    nombre: {
+        type: String,
+        required: true
+    },
+    apellido: {
+        type: String, 
+        required: true
+    }
 });
 // BeneficiarySchema.swaggerName = 'Beneficiary';
 module.exports = mongoose.model('user', UserSchema);

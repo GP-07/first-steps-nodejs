@@ -155,7 +155,7 @@ const settings = {
 const mongoUrl = 'mongodb://' + settings.host + ':' + settings.port + '/' + settings.db;
 mongoose.connect(mongoUrl, { useNewUrlParser: true });
 ```
-Aclaración: Probablemente se pueda mejorar y encapsular dentro de una función pero por ahora se lo dejará así ya que de esta forma funciona y se puede continuar avanzando.\
+ Aclaración: Probablemente se pueda mejorar y encapsular dentro de una función pero por ahora se lo dejará así ya que de esta forma funciona y se puede continuar avanzando.
 3. Definir un esquema. Ejemplo: dentro de la carpeta `models` se creó el archivo `user.model.js` para definir el esquema que se usará para los usuarios:
 ```JavaScript
 'use strict';
@@ -164,13 +164,19 @@ const mongoose = require('mongoose');
 // mongoose.Promise = global.Promise;
 
 const UserSchema = new mongoose.Schema({
-    nombre: String,
-    apellido: String
+    nombre: {
+        type: String,
+        required: true
+    },
+    apellido: {
+        type: String, 
+        required: true
+    }
 });
 // BeneficiarySchema.swaggerName = 'Beneficiary';
 module.exports = mongoose.model('user', UserSchema);
 ```
-Aclaración: Por favor, desestimar las líneas comentadas que fueron extraídas de otro código y posiblemente no apliquen para este caso.\
+ Aclaración: Por favor, desestimar las líneas comentadas que fueron extraídas de otro código y posiblemente no apliquen para este caso.
 4. Usar el esquema recién definido en la API. Por ejemplo, dentro de `routes/users.js` se lo usa así:
 ```JavaScript
 /* GET */
