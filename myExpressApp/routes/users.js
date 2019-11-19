@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const User = require('../models/user.model')
 
 // NOTA: Modelo que se usara:
 let usuario = {
@@ -13,27 +14,13 @@ let respuesta = {
 };
 
 /* GET */
-router.get('/', function (req, res) {
-  respuesta = {
-    error: false,
-    codigo: 200,
-    mensaje: ''
-  };
-  if (usuario.nombre === '' || usuario.apellido === '') {
-    respuesta = {
-      error: true,
-      codigo: 501,
-      mensaje: 'El usuario no ha sido creado'
-    };
-  } else {
-    respuesta = {
-      error: false,
-      codigo: 200,
-      mensaje: 'respuesta del usuario',
-      respuesta: usuario
-    };
+router.get('/', async function (req, res) {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message })
   }
-  res.send(respuesta);
 });
 
 /* POST */

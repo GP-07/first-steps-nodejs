@@ -3,13 +3,15 @@
 Página tutorial usada para la inicialización del proyecto:
 [Iniciar-Proyecto-NodeJS](https://code.visualstudio.com/docs/nodejs/nodejs-tutorial)\
 Página tutorial usada para crear la API REST:
-[Inicar-API-REST](https://medium.com/@asfo/desarrollando-una-sencilla-api-rest-con-nodejs-y-express-cab0813f7e4b)
-
-Links utiles de MongoDB:
-Post MongoDB interesante sobre validaciones: [Document Validation Rules](https://www.mongodb.com/blog/post/adding-document-validation-rules-using-mongodb-compass-15)
-Post tutorial para encontrar el schema de una Collection: [Schmea of a Collection](https://medium.com/@ahsan.ayaz/how-to-find-schema-of-a-collection-in-mongodb-d9a91839d992)
-Manual de MongoDB - Create Collection: [db.createCollection](https://docs.mongodb.com/manual/reference/method/db.createCollection/)
-Manual de MongoDB - Schema Validation: [Schema Validation](https://docs.mongodb.com/manual/core/schema-validation/)
+[Inicar-API-REST](https://medium.com/@asfo/desarrollando-una-sencilla-api-rest-con-nodejs-y-express-cab0813f7e4b)\
+\
+Links utiles de MongoDB:\
+Post MongoDB interesante sobre validaciones: [Document Validation Rules](https://www.mongodb.com/blog/post/adding-document-validation-rules-using-mongodb-compass-15)\
+Post tutorial para encontrar el schema de una Collection: [Schmea of a Collection](https://medium.com/@ahsan.ayaz/how-to-find-schema-of-a-collection-in-mongodb-d9a91839d992)\
+Manual de MongoDB - Create Collection: [db.createCollection](https://docs.mongodb.com/manual/reference/method/db.createCollection/)\
+Manual de MongoDB - Schema Validation: [Schema Validation](https://docs.mongodb.com/manual/core/schema-validation/)\
+Post sobre integración de NodeJS-Express con MongoDB: [Integracion NodeJS-MongoDB](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose)
+Otro post sobre integración de NodeJS-Express con MongoDB: [Integracion NodeJS-MongoDB](https://dev.to/beznet/build-a-rest-api-with-node-express-mongodb-4ho4)
 
 ## Express
 Express es muy usado para buildear y correr aplicaciones nodeJS.
@@ -134,3 +136,51 @@ Solo si responde con lo siguiente significa que todo funcionó bien:
 ```JavaScript
 { "ok" : 1 }
 ```
+
+## Integración NodeJS - MongoDB :: mongoose
+1. Instalar mongoose `npm install mongoose`
+2. Agregar la configuración y la conexión en el `app.js` de la siguiente manera:
+```JavaScript
+// NOTA: Agregar el modulo de mongoose para integrar con MongoDB
+var mongoose = require('mongoose');
+
+// NOTA: Agregar la configuración de la BD
+const settings = {
+  host:     process.env.MONGODB_HOST || '127.0.0.1',
+  port:     process.env.MONGODB_PORT || '27017',
+  db:       process.env.MONGODB_DB || 'first-mongodb-database'
+}
+
+// NOTA: Agregar la conexión con la BD
+const mongoUrl = 'mongodb://' + settings.host + ':' + settings.port + '/' + settings.db;
+mongoose.connect(mongoUrl, { useNewUrlParser: true });
+```
+Aclaración: Probablemente se pueda mejorar y encapsular dentro de una función pero por ahora se lo dejará así ya que de esta forma funciona y se puede continuar avanzando.
+3. Definir un esquema. Ejemplo: dentro de la carpeta `models` se creó el archivo `user.model.js` para definir el esquema que se usará para los usuarios:
+```JavaScript
+'use strict';
+
+const mongoose = require('mongoose');
+// mongoose.Promise = global.Promise;
+
+const UserSchema = new mongoose.Schema({
+    nombre: String,
+    apellido: String
+});
+// BeneficiarySchema.swaggerName = 'Beneficiary';
+module.exports = mongoose.model('user', UserSchema);
+```
+Aclaración: Por favor, desestimar las líneas comentadas que fueron extraídas de otro código y posiblemente no apliquen para este caso.
+4. Usar el esquema recién definido en la API. Por ejemplo, dentro de `routes/users.js` se lo usa así:
+```JavaScript
+/* GET */
+router.get('/', async function (req, res) {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+});
+```
+5. TODO: Continuar avanzando en la integración de NodeJS y MongoDB...

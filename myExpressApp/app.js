@@ -10,6 +10,9 @@ var usersRouter = require('./routes/users');
 // NOTA: Agregar el parser para hacer la API REST
 const bodyParser = require('body-parser');
 
+// NOTA: Agregar el modulo de mongoose para integrar con MongoDB
+var mongoose = require('mongoose');
+
 var app = express();
 
 // view engine setup
@@ -44,5 +47,16 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// NOTA: Agregar la configuración de la BD
+const settings = {
+  host:     process.env.MONGODB_HOST || '127.0.0.1',
+  port:     process.env.MONGODB_PORT || '27017',
+  db:       process.env.MONGODB_DB || 'first-mongodb-database'
+}
+
+// NOTA: Agregar la conexión con la BD
+const mongoUrl = 'mongodb://' + settings.host + ':' + settings.port + '/' + settings.db;
+mongoose.connect(mongoUrl, { useNewUrlParser: true });
 
 module.exports = app;
