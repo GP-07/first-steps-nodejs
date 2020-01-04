@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -13,6 +15,9 @@ const bodyParser = require('body-parser');
 // NOTA: Agregar el modulo de mongoose para integrar con MongoDB
 var mongoose = require('mongoose');
 
+// NOTA: Agregar CORS para permitir Cross-Origin
+var cors = require('cors');
+
 var app = express();
 
 // view engine setup
@@ -25,9 +30,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// NOTA: Indicarle que use el CORS
+app.use(cors());
+
 // NOTA: Agregar el parser para hacer la API REST
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// NOTA: Sobreescribe el puerto al 8080 (3000 es el que utiliza express por defecto)
+console.log("Puerto utilizado: " + process.env.PORT);
+app.set('port', process.env.PORT || 8080);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

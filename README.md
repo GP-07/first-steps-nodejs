@@ -37,7 +37,13 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 ```
-3. Se desarrolla la API. Puede ser dentro de `app.js` o dentro de los routes, por ejemplo, `routes/users.js`, como en este caso.
+3. Instalar CORS: `npm install cors`. Ver el siguiente [link](https://expressjs.com/en/resources/middleware/cors.html)
+4. Agregar lo siguiente en la `app.js` para incluir CORS:
+```JavaScript
+var cors = require('cors');
+app.use(cors());
+```
+5. Se desarrolla la API. Puede ser dentro de `app.js` o dentro de los routes, por ejemplo, `routes/users.js`, como en este caso.
 Ejemplo de código para una API:
 ```JavaScript
 var express = require('express');
@@ -79,6 +85,37 @@ router.get('/', function (req, res) {
 });
 ```
 Para mas detalle, por favor, remitirse al archivo: [users.js](./myExpressApp/routes/users.js)
+
+### Creación de archivo Environment
+1. Para crear un archivo Environment donde se pueda guardar URLs y configuraciones distintas segun el ambiente en donde se este desplegando la app, se siguieron las indicaciones que figuran en esta página:  
+https://codeburst.io/how-to-easily-set-up-node-environment-variables-in-your-js-application-d06740f9b9bd  
+Se describirá brevemente a continuación.
+2. Se agrega lo siguiente en el archivo `.gitignore`:  
+```.env```
+3. Se crea el archivo `.env.default`, en la raiz del proyecto, con la siguiente estructura (varia dependiendo las necesidades de cada proyecto):  
+```JavaScript
+NODE_ENV=
+
+DB_HOST=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+```
+4. Se crea el archivo `.env`, en la raiz del proyecto, con la siguiente estructura (varia dependiendo las necesidades de cada proyecto):  
+```JavaScript
+NODE_ENV=development
+PORT=8080
+```
+5. Se instala la dependencia para poder leer el archivo: `npm install dotenv --save`
+6. En el archivo `app.js` se agrega la dependencia para poder leer las configuraciones desde este tipo de archivos:  
+```JavaScript
+require('dotenv').config();
+```
+7. Con esto ya se puede leer configuraciones de la siguiente manera (Se muestra el caso que motivo incluir esto :: Cambiar el puerto en el que se levanta la aplicación):  
+```JavaScript
+console.log("Puerto utilizado: " + process.env.PORT);
+app.set('port', process.env.PORT || 8080);
+```
 
 ## Instalar y correr MongoDB localmente
 1. Bajar el binario de instalación de la página de [MongoDB](https://www.mongodb.com/download-center/community)
