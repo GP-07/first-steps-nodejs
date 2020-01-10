@@ -1,0 +1,19 @@
+version: "2"
+services:
+  app:
+    container_name: app
+    restart: always
+    build: .
+    ports:
+      - "49160:8080"
+    links:
+      - mongo
+    environment:
+      - MONGODB_DB=first-mongodb-database
+      - MONGODB_HOST=mongo
+      - MONGODB_PORT=27017
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
