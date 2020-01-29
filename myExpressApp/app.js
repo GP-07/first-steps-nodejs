@@ -38,8 +38,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // NOTA: Sobreescribe el puerto al 8080 (3000 es el que utiliza express por defecto)
-console.log("Puerto utilizado: " + process.env.PORT);
-app.set('port', process.env.PORT || 8080);
+const appPort = process.env.PORT || 8080;
+app.set('port', appPort);
+console.log(`Puerto utilizado: ${appPort}`);
+console.log(`Puerto utilizado: ${process.env.PORT}`);
+console.log(`Puerto utilizado: ${process.env.PORT || 8080}`);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
