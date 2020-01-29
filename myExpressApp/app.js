@@ -41,8 +41,6 @@ app.use(bodyParser.json());
 const appPort = process.env.PORT || 8080;
 app.set('port', appPort);
 console.log(`Puerto utilizado: ${appPort}`);
-console.log(`Puerto utilizado: ${process.env.PORT}`);
-console.log(`Puerto utilizado: ${process.env.PORT || 8080}`);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
